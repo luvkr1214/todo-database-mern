@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Todo List</h1>
+    </header>
+
+    <main>
+      <form class="add-task-form" action="/add" method="POST">
+        <input type="text" name="task" placeholder="Add new task" required />
+        <button type="submit">Add</button>
+      </form>
+
+      <% if (error === "empty") { %>
+        <div class="alert">Task cannot be empty!</div>
+      <% } %>
+
+      <ul class="task-list">
+        <% tasks.forEach(task => { %>
+          <li>
+            <form action="/delete" method="POST">
+              <input type="hidden" name="taskId" value="<%= task._id %>" />
+              <input type="checkbox" onChange="this.form.submit()" />
+              <span><%= task.name %></span>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    </main>
+
+    <footer>
+      &copy; 2025 Todo App
+    </footer>
+  </div>
+</body>
+</html>
